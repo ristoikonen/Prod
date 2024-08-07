@@ -8,6 +8,7 @@ fetch('https://api.github.com/users/username')
         // Handle any errors here
         console.error(error);
     });
+    
     fetch('https://api.github.com/search/code?q=YOUR_QUERY')
         .then(response => response.json())
         .then(data => {

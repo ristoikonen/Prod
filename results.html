@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Results</title>
+    <script src="se.js"></script>
+
     <link rel="stylesheet" crossorigin href="izo.css">
     <link rel="stylesheet" crossorigin href="land.css">
 </head>
@@ -24,8 +26,11 @@
                 <li><a href="tidbits.html"><b>Tidbits</b></a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li><a href="index.html">About</a></li>
+                <li><div onclick="getProjects()">getProjects</div></li>
+                <li><div onclick="searchCode('DO')">Search code</div></li>
             </ul>
         </nav>
+
         <div class="flex justify-between self-right items-center space-x-1 md:space-x-3"><div class="lg:hidden">
             <button data-testid="search-button-active" class="px-1 h-4 justify-center items-center flex-wrap flex hover:bg-grey-20 duration-150 rounded-full transition ease-in-out relative cursor-pointer lg:hidden">
                 <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" class="w-3">
