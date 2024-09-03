@@ -5,11 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Results</title>
+    <link rel="stylesheet" crossorigin href="izo.css">
+    <link rel="stylesheet" crossorigin href="land.css">
+
+    <script type="text/css">
+        pre.cscode {margin:10em; overflow:auto; background-color:#ffffff;}
+        .cscode code {font-family:Segoe UI,Roboto,Verdana, Consolas,"Courier New",Courier,Monospace; <font-size:20></font-size:20>pt; color:#000000;}
+        .cscode .key {color:#0000ff;}
+        .cscode .com {color:#008000;}
+        .cscode .str {color:#a31515;}
+    </script>
+
     <script src="se.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <link rel="stylesheet" crossorigin href="izo.css">
-    <link rel="stylesheet" crossorigin href="land.css">
+
+
 
     <script src="https://black-scholes-js.netlify.app/js/blackscholes.js"></script>
 
@@ -186,6 +197,39 @@
           style="display: none; visibility: hidden"
         ></iframe>
       </noscript>
+
+
+
+    <pre class="cscode">
+        <small>
+        <code>      
+
+        <span class="com">// Functions used listed below</span>
+
+        <span class="com">// Cumulative distribution function for the standard normal distribution</span>
+        function cdf(x) {
+            <span class="key">return</span> (1.0 + Math.erf(x / Math.sqrt(2.0))) / 2.0;
+        }
+
+        <span class="com">// Black-Scholes formula for call option price</span>
+        function blackScholesCall(S, K, T, r, sigma) {
+          let d1 = (Math.log(S / K) + (r + 0.5 * sigma * sigma) * T) / (sigma * Math.sqrt(T));
+          let d2 = d1 - sigma * Math.sqrt(T);
+          <span class="key">return</span> S * cdf(d1) - K * Math.exp(-r * T) * cdf(d2);
+        }
+        
+        <span class="com">// Black-Scholes formula for put option price</span>
+        function blackScholesPut(S, K, T, r, sigma) {
+          let d1 = (Math.log(S / K) + (r + 0.5 * sigma * sigma) * T) / (sigma * Math.sqrt(T));
+          let d2 = d1 - sigma * Math.sqrt(T);
+          <span class="key">return</span> K * Math.exp(-r * T) * cdf(-d2) - S * cdf(-d1);
+        }
+        
+        </code>
+    </small>
+    </pre>
+
+
 
 
       

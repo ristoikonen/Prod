@@ -15,8 +15,6 @@
 
 ## NOTES
 
-* See comments for next steps.
-
 BS holder library usage code
 ```sh
 new BSHolder(stock,strike,interest,vola,term);
