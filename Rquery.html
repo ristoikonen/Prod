@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Results</title>
+    <script src="se.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" crossorigin href="izo.css">
+    <link rel="stylesheet" crossorigin href="land.css">
+
+    <script src="https://black-scholes-js.netlify.app/js/blackscholes.js"></script>
+
+    <script type="text/javascript"> 
+        
+        var new_num = 40; // global variable
+        
+        
+
+        jQuery(document).ready(function(){ 
+
+            var bsholder = 1; //new BSHolder(stock,strike,interest,vola,term);
+
+            $('#countme').css({
+                margin: '0 auto',
+                backgroundColor: '#ccc',
+                textAlign: 'center',
+                fontSize: '40px'
+            }).bind('click', function(){
+                var current = parseInt($(this).text(), 10);
+                var ibsholder = parseInt(bsholder, 10);
+                new_num = new_num + 1
+                $(this).text(ibsholder+1).css({fontSize: new_num+'px'})
+            });
+        });
+        </script>
+
+</head>
+<body class="izoV2">
+
+
+<div class="bg-white" data-role="page">
+        <!-- <div class="border-grey-40 md:border-b bg-white z-20"> -->
+        <!-- <div class="flex container py-2 items-center justify-between">
+        </div>  -->
+
+        <div class="container mt-5 text-center">
+            <nav class="md:mx-3">
+                <ul class="hidden font-brand md:flex md:space-x-4 lg:space-x-6"><li><a href="projects.html">Projects</a></li>
+                    <li>&nbsp;</li>
+                    <li><a href="Rquery.html"><b>Black-Scholes</b></a></li>
+                    <li>&nbsp;</li>
+                    <li><a href="tidbits.html">Tidbits</a></li>
+                    <li>&nbsp;</li>
+                    <li><a href="index.html">About</a></li>
+                    <li><div onclick="getProjects()">getProjects</div></li>
+                    <li><div onclick="searchCode('DO')">Search code</div></li>
+                </ul>
+            </nav>
+        </div>
+
+
+        <div class="container mt-5 text-center">
+
+   
+            <div id="countme">0</div>
+        </div>
+
+        <div class="container my-5">
+            <div class="row justify-content-around">
+
+        <div class="col-12 col-md-6">
+            <form id="bsValues">
+
+
+                <label for="stock">Stock Price</label>
+                <input type="number" min="0.01" step="0.01" max="2500" class="form-control"
+                    id="stock" placeholder="20.00" required>
+                <label for="strike">Strike Price</label>
+                <input type="number" min="0.01" step="0.01" max="2500" class="form-control"
+                    id="strike" placeholder="22.00" required>
+                <label for="interest">Interest Rate</label>
+                <input type="number" min="0.00" step="0.01" max="1" class="form-control"
+                    id="interest" placeholder="0.06" required>
+                <label for="volatility">Volatility</label>
+                <input type="number" min="0.00" step="0.01" max="1" class="form-control"
+                    id="volatility" placeholder="0.05" required>
+                <label for="term">Term</label>
+                <input type="number" min="0" step="1" max="1000" class="form-control"
+                    id="term" placeholder="30" required>
+                <button type="button" class="btn btn-primary btn-block my-3" onclick="calcValues(stock.value, strike.value, interest.value, volatility.value, term.value)">Submit</button>
+            </form>
+        </div>
+
+
+        <div class="col-12 col-md-6">
+            <form>
+                <fieldset disabled>
+                    <label for="call-price">Call Price</label>
+                    <input type="number" class="form-control"
+                        id="call-price" placeholder="0.00" >
+                    <label for="put-price">Put Price</label>
+                    <input type="number" class="form-control"
+                        id="put-price" placeholder="0.00" >
+                    <label for="call-delta">Call Delta</label>
+                    <input type="number" class="form-control"
+                        id="call-delta" placeholder="0.00" >
+                    <label for="put-delta">Put Delta</label>
+                    <input type="number" class="form-control"
+                        id="put-delta" placeholder="0.00" >
+                    <label for="gamma">Gamma</label>
+                    <input type="number" class="form-control"
+                        id="gamma" placeholder="0.00" >
+                    <label for="vega">Vega</label>
+                    <input type="number"  class="form-control"
+                        id="vega" placeholder="0.00" >
+                    <label for="call-theta">Call Theta</label>
+                    <input type="number" class="form-control"
+                        id="call-theta" placeholder="0.00" >
+                    <label for="put-theta">Put Theta</label>
+                    <input type="number" class="form-control"
+                        id="put-theta" placeholder="0.00" >
+                    <label for="call-rho">Call Rho</label>
+                    <input type="number" class="form-control"
+                        id="call-rho" placeholder="0.00" >
+                    <label for="put-rho">Put Rho</label>
+                    <input type="number" class="form-control"
+                        id="put-rho" placeholder="0.00" >
+                </fieldset>
+            </form>
+        </div>
+
+
+
+    </div>
+</div>
+
+    <!-- </div> -->
+</div>
+</footer>
+</div></div>
+
+
+
+
+<script>
+    function copyCode(elementId) {
+        /* Get the text field */
+        var copyText = document.getElementById(elementId);
+
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+    }
+
+    const calcValues = function(stock, strike, interest, volatility, term) {
+
+        let bsholder = new BSHolder(stock, strike, interest, volatility, term);
+
+        document.querySelector('#call-price').setAttribute('value', BS.call(bsholder));
+        document.querySelector('#put-price').setAttribute('value', BS.put(bsholder));
+        document.querySelector('#call-delta').setAttribute('value', BS.cdelta(bsholder));
+        document.querySelector('#put-delta').setAttribute('value', BS.pdelta(bsholder));
+        document.querySelector('#gamma').setAttribute('value', BS.gamma(bsholder));
+        document.querySelector('#vega').setAttribute('value', BS.vega(bsholder));
+        document.querySelector('#call-theta').setAttribute('value', BS.ctheta(bsholder));
+        document.querySelector('#put-theta').setAttribute('value', BS.ptheta(bsholder));
+        document.querySelector('#call-rho').setAttribute('value', BS.crho(bsholder));
+        document.querySelector('#put-rho').setAttribute('value', BS.prho(bsholder));
+
+    }
+</script>
+
+
+
+    <noscript>
+        <iframe
+          src="//www.googletagmanager.com/ns.html?id=GTM-WLDPXRV"
+          height="0"
+          width="0"
+          style="display: none; visibility: hidden"
+        ></iframe>
+      </noscript>
+
+
+      
+    </body>
+  </html>
