@@ -26,16 +26,16 @@ fetch('https://api.github.com/users/username')
 fetch('https://api.github.com/search/code?q=YOUR_QUERY')
     .then(response => response.json())
     .then(data => {
-        // Process the search results here
+        // Place code here
         console.log(data.items);
     })
     .catch(error => {
-        // Handle any errors here
+        // And errors here..
         console.error(error);
     });
 
     const callSearchCode = async function(a) {
-        console.log('ddd');
+        console.log('call searchCode, log result');
         let result = await searchCode(a);
         console.log(result);
     }
